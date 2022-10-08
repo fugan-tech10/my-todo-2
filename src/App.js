@@ -10,11 +10,11 @@ export const CompletedContext = createContext({});
 
 const App =() => {
   const [taskList, setTaskList] = useState([]);
-  const [completedList, setCompletedList] = useState([]);
+  //const [completedList, setCompletedList] = useState([]);
   return (
     <div className="body">
       <TodoContext.Provider value={[taskList, setTaskList]}>
-      <CompletedContext.Provider value={[completedList, setCompletedList]}>  
+      <CompletedContext.Provider value={[taskList, setTaskList]}>  
       <Title />
       <Inputform />
       <TodoList />

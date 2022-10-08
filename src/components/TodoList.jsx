@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
+import { useState } from "react";
 import { TodoContext } from "../App";
 import { CompletedContext } from "../App";
 
 export const TodoList = () => {
   const [taskList, setTaskList] = useContext(TodoContext);
-  const [completedList, setCompletedList] = useContext(CompletedContext);
+  // const [completedList, setCompletedList] = useContext(CompletedContext);
   const onClickImmidiate = (id, todo) => {
     setTaskList(
       taskList.map((todo) => {
@@ -46,16 +47,13 @@ export const TodoList = () => {
         return todo;
       })
     );
-
-    setCompletedList(taskList.filter(todo => todo.completed === true)); 
-    console.log(completedList);
-//    setTaskList(taskList.filter(todo => todo.id !== id))
-
   };
 
   const onClickDelete = (id) => {
     setTaskList(taskList.filter((todo) => todo.id !== id));
   };
+
+  const currentList = taskList.filter((todo) => todo.completed === false);
 
   return (
     <>
@@ -68,7 +66,7 @@ export const TodoList = () => {
           </tr>
         </thead>
         <tbody>
-          {taskList.map((todo, index) => (
+          {currentList.map((todo, index) => (
             <tr key={todo.text}>
               <td>{index}</td>
               <td>{todo.text}</td>
@@ -89,7 +87,12 @@ export const TodoList = () => {
                 </button>
               </td>
               <td>
-                <button onClick={() => onClickComplete(todo.id)}>完了</button>
+                <button
+                  className={`${todo.completed ? "completed" : ""}`}
+                  onClick={() => onClickComplete(todo.id)}
+                >
+                  完了
+                </button>
               </td>
               <td>
                 <button onClick={() => onClickDelete(todo.id)}>削除</button>

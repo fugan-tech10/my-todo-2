@@ -1,14 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TodoContext } from "../App";
 import { CompletedContext } from "../App";
 
 export const Completed = () => {
-//  const [taskList, setTaskList] = useContext(TodoContext);
-  const [completedList, setCompletedList] = useContext(CompletedContext);
+  const [taskList, setTaskList] = useContext(TodoContext);
+  //const [completedList, setCompletedList] = useContext(CompletedContext);
 
   const onClickDelete = (id) => {
-    setCompletedList(completedList.filter((todo) => todo.id !== id));
+    setTaskList(taskList.filter((todo) => todo.id !== id));
   };
+
+  const completedList = taskList.filter((todo) => todo.completed === true)
+ 
 
   return (
     <>
@@ -16,7 +19,7 @@ export const Completed = () => {
       <table>
         <tbody>
           {completedList.map((todo, index) => (
-              <tr>
+              <tr key={todo.text}>
                 <td>{index}</td>
                 <td>{todo.text}</td>
                 <td>
